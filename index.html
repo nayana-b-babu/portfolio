@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nayana B Babu — Python Full Stack Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0E1A22;
+    --ink-2:#122531;
+    --panel:#152A38;
+    --line:#213B4A;
+    --text:#E7EEF1;
+    --muted:#93ABB6;
+    --teal:#3FE0C5;
+    --amber:#E8A64B;
+    --radius:10px;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--ink);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+
+  ::selection{background:var(--teal);color:var(--ink);}
+
+  h1,h2,h3,.display{
+    font-family:'Space Grotesk',sans-serif;
+    letter-spacing:-0.01em;
+  }
+
+  .mono{
+    font-family:'JetBrains Mono',monospace;
+  }
+
+  a{color:inherit;text-decoration:none;}
+
+  /* ---------- Background circuit grid ---------- */
+  .grid-bg{
+    position:fixed;
+    inset:0;
+    z-index:0;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size:64px 64px;
+    opacity:0.14;
+    pointer-events:none;
+  }
+
+  .glow{
+    position:fixed;
+    top:-200px;
+    right:-200px;
+    width:600px;
+    height:600px;
+    background:radial-gradient(circle, rgba(63,224,197,0.10), transparent 70%);
+    z-index:0;
+    pointer-events:none;
+  }
+
+  /* ---------- Nav ---------- */
+  nav{
+    position:fixed;
+    top:0;left:0;right:0;
+    z-index:100;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:18px 6vw;
+    background:rgba(14,26,34,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+
+  .logo{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:20px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .logo .dot{
+    width:8px;height:8px;border-radius:50%;
+    background:var(--teal);
+    box-shadow:0 0 8px var(--teal);
+  }
+
+  .nav-links{
+    display:flex;
+    gap:32px;
+    font-size:14px;
+    font-family:'JetBrains Mono',monospace;
+  }
+  .nav-links a{
+    color:var(--muted);
+    position:relative;
+    padding:4px 0;
+    transition:color .25s ease;
+  }
+  .nav-links a::after{
+    content:'';
+    position:absolute;
+    left:0;bottom:0;
+    width:0%;height:1px;
+    background:var(--teal);
+    transition:width .25s ease;
+  }
+  .nav-links a:hover{color:var(--text);}
+  .nav-links a:hover::after{width:100%;}
+  .nav-links a.active{color:var(--teal);}
+
+  #nav-toggle{display:none;}
+
+  /* ---------- Circuit trace (desktop signature element) ---------- */
+  .trace-rail{
+    position:fixed;
+    left:38px;
+    top:0;
+    bottom:0;
+    width:2px;
+    z-index:5;
+    pointer-events:none;
+  }
+  .trace-track{
+    position:absolute;
+    left:0;top:0;
+    width:2px;height:100%;
+    background:var(--line);
+  }
+  .trace-fill{
+    position:absolute;
+    left:0;top:0;
+    width:2px;height:0%;
+    background:linear-gradient(var(--teal), var(--amber));
+    box-shadow:0 0 10px rgba(63,224,197,0.6);
+    transition:height .1s linear;
+  }
+  .trace-node{
+    position:absolute;
+    left:-5px;
+    width:12px;height:12px;
+    border-radius:50%;
+    background:var(--ink-2);
+    border:2px solid var(--line);
+    transition:all .3s ease;
+  }
+  .trace-node.lit{
+    background:var(--teal);
+    border-color:var(--teal);
+    box-shadow:0 0 12px var(--teal);
+  }
+
+  /* ---------- Layout helpers ---------- */
+  main{position:relative;z-index:2;}
+  section{
+    padding:140px 6vw 100px;
+    max-width:1100px;
+    margin:0 auto;
+    position:relative;
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:13px;
+    color:var(--teal);
+    text-transform:uppercase;
+    letter-spacing:0.14em;
+    margin-bottom:14px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .eyebrow::before{
+    content:'';
+    width:24px;height:1px;
+    background:var(--teal);
+  }
+  .section-title{
+    font-size:clamp(28px,4vw,40px);
+    font-weight:600;
+    margin-bottom:44px;
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding-top:100px;
+    position:relative;
+  }
+  .hero-mono-tag{
+    position:absolute;
+    top:110px; right:6vw;
+    font-family:'Space Grotesk',sans-serif;
+    font-size:min(22vw,260px);
+    font-weight:700;
+    color:transparent;
+    -webkit-text-stroke:1px var(--line);
+    z-index:-1;
+    user-select:none;
+  }
+  .hero .eyebrow{margin-bottom:24px;}
+  .hero h1{
+    font-size:clamp(40px,7vw,84px);
+    font-weight:700;
+    line-height:1.05;
+    margin-bottom:20px;
+  }
+  .hero h1 span{color:var(--teal);}
+  .hero p.lead{
+    max-width:600px;
+    color:var(--muted);
+    font-size:18px;
+    margin-bottom:40px;
+  }
+  .hero-actions{
+    display:flex;
+    gap:18px;
+    flex-wrap:wrap;
+    margin-bottom:56px;
+  }
+  .btn{
+    font-family:'JetBrains Mono',monospace;
+    font-size:14px;
+    padding:14px 26px;
+    border-radius:var(--radius);
+    border:1px solid var(--line);
+    transition:all .25s ease;
+    cursor:pointer;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+  }
+  .btn-primary{
+    background:var(--teal);
+    color:var(--ink);
+    border-color:var(--teal);
+    font-weight:600;
+  }
+  .btn-primary:hover{
+    background:transparent;
+    color:var(--teal);
+    box-shadow:0 0 0 1px var(--teal) inset;
+  }
+  .btn-ghost{color:var(--text);}
+  .btn-ghost:hover{border-color:var(--teal);color:var(--teal);}
+
+  .hero-meta{
+    display:flex;
+    gap:32px;
+    flex-wrap:wrap;
+    font-family:'JetBrains Mono',monospace;
+    font-size:13px;
+    color:var(--muted);
+  }
+  .hero-meta a:hover{color:var(--teal);}
+
+  .scroll-cue{
+    position:absolute;
+    bottom:36px; left:6vw;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    color:var(--muted);
+  }
+  .scroll-cue .line{
+    width:1px;height:36px;
+    background:linear-gradient(var(--teal), transparent);
+    animation:pulseLine 2s ease-in-out infinite;
+  }
+  @keyframes pulseLine{0%,100%{opacity:.3;}50%{opacity:1;}}
+
+  /* ---------- About ---------- */
+  .about-grid{
+    display:grid;
+    grid-template-columns:1.3fr 1fr;
+    gap:60px;
+    align-items:start;
+  }
+  .about-grid p{color:var(--muted);margin-bottom:16px;}
+  .fact-list{
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    background:var(--panel);
+    padding:8px 0;
+  }
+  .fact{
+    display:flex;
+    justify-content:space-between;
+    padding:14px 20px;
+    border-bottom:1px solid var(--line);
+    font-size:14px;
+  }
+  .fact:last-child{border-bottom:none;}
+  .fact .k{
+    font-family:'JetBrains Mono',monospace;
+    color:var(--muted);
+  }
+  .fact .v:hover{color:var(--teal);}
+
+  /* ---------- Skills ---------- */
+  .skills-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:24px;
+  }
+  .skill-card{
+    border:1px solid var(--line);
+    background:var(--panel);
+    border-radius:var(--radius);
+    padding:26px;
+    transition:transform .3s ease, border-color .3s ease;
+  }
+  .skill-card:hover{
+    transform:translateY(-4px);
+    border-color:var(--teal);
+  }
+  .skill-card h3{
+    font-size:16px;
+    margin-bottom:16px;
+    color:var(--amber);
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .skill-card h3::before{
+    content:'';
+    width:8px;height:8px;
+    background:var(--amber);
+    border-radius:2px;
+    display:inline-block;
+  }
+  .chip-row{display:flex;flex-wrap:wrap;gap:8px;}
+  .chip{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    padding:6px 12px;
+    border:1px solid var(--line);
+    border-radius:20px;
+    color:var(--text);
+  }
+
+  /* ---------- Experience Timeline ---------- */
+  .timeline{
+    display:flex;
+    flex-direction:column;
+    gap:0;
+  }
+  .tl-item{
+    display:grid;
+    grid-template-columns:160px 1fr;
+    gap:32px;
+    padding:32px 0;
+    border-top:1px solid var(--line);
+  }
+  .tl-item:last-child{border-bottom:1px solid var(--line);}
+  .tl-date{
+    font-family:'JetBrains Mono',monospace;
+    font-size:13px;
+    color:var(--teal);
+  }
+  .tl-role{
+    font-size:19px;
+    font-weight:600;
+    margin-bottom:4px;
+  }
+  .tl-org{
+    color:var(--muted);
+    font-size:14px;
+    margin-bottom:14px;
+  }
+  .tl-item ul{
+    padding-left:18px;
+    color:var(--muted);
+    font-size:14.5px;
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+  }
+
+  /* ---------- Projects ---------- */
+  .project-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+    gap:26px;
+  }
+  .project-card{
+    border:1px solid var(--line);
+    background:var(--panel);
+    border-radius:var(--radius);
+    padding:28px;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    transition:transform .3s ease, box-shadow .3s ease;
+  }
+  .project-card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 12px 30px rgba(0,0,0,0.35);
+  }
+  .project-card h3{font-size:19px;}
+  .project-card p{color:var(--muted);font-size:14px;}
+  .project-card ul{
+    padding-left:18px;
+    color:var(--muted);
+    font-size:13.5px;
+    display:flex;
+    flex-direction:column;
+    gap:5px;
+  }
+  .tech-row{display:flex;flex-wrap:wrap;gap:6px;margin:2px 0;}
+  .tech-tag{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    padding:4px 9px;
+    background:rgba(63,224,197,0.08);
+    color:var(--teal);
+    border-radius:5px;
+  }
+  .project-link{
+    margin-top:auto;
+    font-family:'JetBrains Mono',monospace;
+    font-size:13px;
+    color:var(--amber);
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+  }
+  .project-link:hover{color:var(--teal);}
+
+  /* ---------- Education ---------- */
+  .edu-card{
+    border:1px solid var(--line);
+    background:var(--panel);
+    border-radius:var(--radius);
+    padding:32px;
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:16px;
+  }
+  .edu-card h3{font-size:20px;margin-bottom:6px;}
+  .edu-card p{color:var(--muted);font-size:14px;}
+  .edu-year{
+    font-family:'JetBrains Mono',monospace;
+    color:var(--teal);
+    font-size:14px;
+    align-self:center;
+  }
+
+  /* ---------- Contact / Footer ---------- */
+  footer{
+    padding:100px 6vw 60px;
+    text-align:center;
+    position:relative;
+    z-index:2;
+  }
+  footer .eyebrow{justify-content:center;}
+  footer .eyebrow::before{display:none;}
+  footer h2{
+    font-size:clamp(30px,5vw,52px);
+    margin-bottom:24px;
+  }
+  footer p.lead{
+    color:var(--muted);
+    max-width:500px;
+    margin:0 auto 36px;
+  }
+  .contact-actions{
+    display:flex;
+    justify-content:center;
+    gap:18px;
+    flex-wrap:wrap;
+    margin-bottom:60px;
+  }
+  .foot-links{
+    display:flex;
+    justify-content:center;
+    gap:28px;
+    flex-wrap:wrap;
+    font-family:'JetBrains Mono',monospace;
+    font-size:13px;
+    color:var(--muted);
+    margin-bottom:30px;
+  }
+  .foot-links a:hover{color:var(--teal);}
+  .copyright{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    color:var(--line);
+  }
+
+  /* ---------- Reveal on scroll ---------- */
+  .reveal{
+    opacity:0;
+    transform:translateY(24px);
+    transition:opacity .7s ease, transform .7s ease;
+  }
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 900px){
+    .trace-rail{display:none;}
+    section{padding:110px 5vw 70px;}
+    .about-grid{grid-template-columns:1fr;}
+    .hero-mono-tag{display:none;}
+    .tl-item{grid-template-columns:1fr;gap:8px;}
+  }
+  @media (max-width: 720px){
+    .nav-links{
+      position:fixed;
+      top:60px; left:0; right:0;
+      background:var(--ink-2);
+      flex-direction:column;
+      gap:0;
+      border-bottom:1px solid var(--line);
+      max-height:0;
+      overflow:hidden;
+      transition:max-height .3s ease;
+    }
+    .nav-links a{padding:16px 6vw;border-bottom:1px solid var(--line);width:100%;}
+    #nav-toggle:checked ~ .nav-links{max-height:400px;}
+    .menu-btn{
+      display:flex;
+      flex-direction:column;
+      gap:5px;
+      cursor:pointer;
+    }
+    .menu-btn span{width:22px;height:2px;background:var(--text);}
+  }
+  @media (min-width:721px){
+    .menu-btn{display:none;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div class="glow"></div>
+
+<div class="trace-rail">
+  <div class="trace-track"></div>
+  <div class="trace-fill" id="traceFill"></div>
+  <div class="trace-node" data-section="home" style="top:8%"></div>
+  <div class="trace-node" data-section="about" style="top:24%"></div>
+  <div class="trace-node" data-section="skills" style="top:42%"></div>
+  <div class="trace-node" data-section="experience" style="top:58%"></div>
+  <div class="trace-node" data-section="projects" style="top:76%"></div>
+  <div class="trace-node" data-section="contact" style="top:94%"></div>
+</div>
+
+<nav>
+  <div class="logo"><span class="dot"></span>NB</div>
+  <input type="checkbox" id="nav-toggle">
+  <label for="nav-toggle" class="menu-btn"><span></span><span></span><span></span></label>
+  <div class="nav-links">
+    <a href="#home" class="nav-link" data-section="home">home</a>
+    <a href="#about" class="nav-link" data-section="about">about</a>
+    <a href="#skills" class="nav-link" data-section="skills">skills</a>
+    <a href="#experience" class="nav-link" data-section="experience">experience</a>
+    <a href="#projects" class="nav-link" data-section="projects">projects</a>
+    <a href="#contact" class="nav-link" data-section="contact">contact</a>
+  </div>
+</nav>
+
+<main>
+
+  <section class="hero" id="home">
+    <div class="hero-mono-tag">NB</div>
+    <div class="eyebrow mono">available for opportunities</div>
+    <h1>Nayana B Babu<br><span>Python Full Stack Developer</span></h1>
+    <p class="lead">I build scalable web applications with Python, Flask/Django and JavaScript — from hospital and library systems to grocery and clinic platforms. I like turning real-world problems into working software.</p>
+    <div class="hero-actions">
+      <a href="#projects" class="btn btn-primary">View Projects →</a>
+      <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+    </div>
+    <div class="hero-meta">
+      <a href="mailto:nayanab.2502@gmail.com">nayanab.2502@gmail.com</a>
+      <span>+91 8129381702</span>
+      <span>Thiruvananthapuram, Kerala</span>
+      <a href="https://linkedin.com/in/nayana-b-babu" target="_blank">LinkedIn ↗</a>
+      <a href="https://github.com/nayana-b-babu" target="_blank">GitHub ↗</a>
+    </div>
+    <div class="scroll-cue"><div class="line"></div>scroll</div>
+  </section>
+
+  <section id="about">
+    <div class="eyebrow mono">01 — about</div>
+    <h2 class="section-title reveal">Solving real problems, one full-stack build at a time</h2>
+    <div class="about-grid">
+      <div class="reveal">
+        <p>I'm an aspiring full stack developer with hands-on experience building scalable web applications using Python (Flask), MySQL and JavaScript.</p>
+        <p>Across projects like inventory management and appointment booking systems, I've focused on writing clean, working code and designing interfaces that are actually easy to use.</p>
+        <p>Alongside development, I spend time teaching programming through robotics — which keeps my problem-solving and debugging instincts sharp.</p>
+      </div>
+      <div class="fact-list reveal">
+        <div class="fact"><span class="k">location</span><span class="v">Thiruvananthapuram, Kerala</span></div>
+        <div class="fact"><span class="k">email</span><a class="v" href="mailto:nayanab.2502@gmail.com">nayanab.2502@gmail.com</a></div>
+        <div class="fact"><span class="k">phone</span><span class="v">+91 8129381702</span></div>
+        <div class="fact"><span class="k">linkedin</span><a class="v" href="https://linkedin.com/in/nayana-b-babu" target="_blank">nayana-b-babu</a></div>
+        <div class="fact"><span class="k">github</span><a class="v" href="https://github.com/nayana-b-babu" target="_blank">nayana-b-babu</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="eyebrow mono">02 — skills</div>
+    <h2 class="section-title reveal">Toolkit</h2>
+    <div class="skills-grid">
+      <div class="skill-card reveal">
+        <h3>Frontend</h3>
+        <div class="chip-row">
+          <span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">Bootstrap</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <h3>Backend</h3>
+        <div class="chip-row">
+          <span class="chip">Python (Flask)</span><span class="chip">JavaScript</span><span class="chip">REST APIs</span><span class="chip">OOP</span><span class="chip">Data Structures</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <h3>Database</h3>
+        <div class="chip-row">
+          <span class="chip">MySQL</span><span class="chip">SQLite</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <h3>Tools</h3>
+        <div class="chip-row">
+          <span class="chip">Git</span><span class="chip">GitHub</span><span class="chip">VS Code</span><span class="chip">PyCharm</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="eyebrow mono">03 — experience</div>
+    <h2 class="section-title reveal">Where I've worked</h2>
+    <div class="timeline">
+      <div class="tl-item reveal">
+        <div class="tl-date">Apr 2026 — Present</div>
+        <div>
+          <div class="tl-role">Python Full Stack Developer Intern</div>
+          <div class="tl-org">Wistora IQ Solutions</div>
+          <ul>
+            <li>Developed web applications using Python and full-stack technologies</li>
+            <li>Worked with front-end technologies such as HTML, CSS and JavaScript</li>
+            <li>Built database management and API integration skills</li>
+            <li>Gained hands-on experience with real-world web development projects</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-date">Sep 2024 — Apr 2026</div>
+        <div>
+          <div class="tl-role">Robotics Instructor</div>
+          <div class="tl-org">Talrop</div>
+          <ul>
+            <li>Taught programming concepts through robotics — logic building, coding practices and real-time problem solving</li>
+            <li>Built and refined code-driven solutions for automation and robotics-based applications</li>
+            <li>Guided students in algorithmic thinking, debugging and structured code development</li>
+            <li>Designed project-based learning modules integrating coding with sensors and microcontrollers</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="eyebrow mono">04 — projects</div>
+    <h2 class="section-title reveal">Things I've built</h2>
+    <div class="project-grid">
+
+      <div class="project-card reveal">
+        <h3>Hospital Management System</h3>
+        <div class="tech-row">
+          <span class="tech-tag">Django</span><span class="tech-tag">SQLite</span><span class="tech-tag">HTML/CSS/JS</span>
+        </div>
+        <p>Full-stack web app to manage hospital operations.</p>
+        <ul>
+          <li>Modules for doctor management, appointment booking, registration and auth</li>
+          <li>SQLite database for doctors, patients and appointments</li>
+          <li>Responsive UI for an intuitive experience</li>
+        </ul>
+        <a class="project-link" href="https://github.com/nayana-b-babu/hospital-management-system" target="_blank">github.com/nayana-b-babu/hospital-management-system ↗</a>
+      </div>
+
+      <div class="project-card reveal">
+        <h3>Library Management System</h3>
+        <div class="tech-row">
+          <span class="tech-tag">Django</span><span class="tech-tag">SQLite</span><span class="tech-tag">HTML/CSS/JS</span>
+        </div>
+        <p>Web app to organize and manage library resources.</p>
+        <ul>
+          <li>Add, update, issue, return and manage books and members</li>
+          <li>Django + SQLite for full CRUD operations</li>
+          <li>Interactive, user-friendly interface</li>
+        </ul>
+        <a class="project-link" href="https://github.com/nayana-b-babu/library-management-system" target="_blank">github.com/nayana-b-babu/library-management-system ↗</a>
+      </div>
+
+      <div class="project-card reveal">
+        <h3>Grocery Store Management System</h3>
+        <div class="tech-row">
+          <span class="tech-tag">Flask</span><span class="tech-tag">MySQL</span><span class="tech-tag">Bootstrap</span>
+        </div>
+        <p>Full-stack app to manage grocery store operations.</p>
+        <ul>
+          <li>Inventory management, order processing and product tracking</li>
+          <li>Flask backend for data processing and logic</li>
+          <li>Responsive Bootstrap interface</li>
+        </ul>
+        <a class="project-link" href="https://github.com/nayana-b-babu/grocery-shopping-webapp" target="_blank">github.com/nayana-b-babu/grocery-shopping-webapp ↗</a>
+      </div>
+
+      <div class="project-card reveal">
+        <h3>Online Clinic Appointment System</h3>
+        <div class="tech-row">
+          <span class="tech-tag">Flask</span><span class="tech-tag">SQLite</span><span class="tech-tag">HTML/CSS</span>
+        </div>
+        <p>Full-stack app to manage clinic appointments.</p>
+        <ul>
+          <li>Registration and login with password hashing + session auth</li>
+          <li>Role-based dashboards for patients and admins</li>
+          <li>SQLite for application data via Flask</li>
+        </ul>
+        <a class="project-link" href="https://github.com/nayana-b-babu/clinic-appointment-system" target="_blank">github.com/nayana-b-babu/clinic-appointment-system ↗</a>
+      </div>
+
+      <div class="project-card reveal">
+        <h3>Plant Disease Detection &amp; Remedy Recommendation</h3>
+        <div class="tech-row">
+          <span class="tech-tag">CNN</span><span class="tech-tag">Image Processing</span>
+        </div>
+        <p>Detects plant leaf disease and recommends treatment.</p>
+        <ul>
+          <li>CNN model to classify leaf images with high accuracy</li>
+          <li>Preprocessed and augmented datasets to reduce overfitting</li>
+          <li>Treatment recommendations delivered via a simple upload interface</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="education-sec">
+    <div class="eyebrow mono">05 — education</div>
+    <h2 class="section-title reveal">Education</h2>
+    <div class="edu-card reveal">
+      <div>
+        <h3>B.Tech in Computer Science and Engineering</h3>
+        <p>LBS Institute of Technology for Women, Poojappura</p>
+      </div>
+      <div class="edu-year">2021</div>
+    </div>
+  </section>
+
+</main>
+
+<footer id="contact">
+  <div class="eyebrow mono">06 — contact</div>
+  <h2 class="reveal">Let's build something together</h2>
+  <p class="lead reveal">Open to full-stack developer roles and collaborations. Reach out any time.</p>
+  <div class="contact-actions reveal">
+    <a href="mailto:nayanab.2502@gmail.com" class="btn btn-primary">Say Hello →</a>
+    <a href="tel:+918129381702" class="btn btn-ghost">Call Me</a>
+  </div>
+  <div class="foot-links">
+    <a href="mailto:nayanab.2502@gmail.com">nayanab.2502@gmail.com</a>
+    <a href="https://linkedin.com/in/nayana-b-babu" target="_blank">LinkedIn</a>
+    <a href="https://github.com/nayana-b-babu" target="_blank">GitHub</a>
+  </div>
+  <div class="copyright">© 2026 Nayana B Babu — built with HTML, CSS &amp; JavaScript</div>
+</footer>
+
+<script>
+  // Scroll-triggered reveal animations
+  const revealEls = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add('in');
+      }
+    });
+  },{threshold:0.15});
+  revealEls.forEach(el=>revealObserver.observe(el));
+
+  // Nav active link + trace node lighting based on section in view
+  const sections = document.querySelectorAll('main section, footer');
+  const navLinks = document.querySelectorAll('.nav-link');
+  const traceNodes = document.querySelectorAll('.trace-node');
+
+  const sectionObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      const id = entry.target.getAttribute('id');
+      if(entry.isIntersecting){
+        navLinks.forEach(l=>l.classList.toggle('active', l.dataset.section===id));
+        traceNodes.forEach(n=>{
+          if(n.dataset.section===id) n.classList.add('lit');
+        });
+      }
+    });
+  },{threshold:0.4});
+  sections.forEach(s=>sectionObserver.observe(s));
+
+  // Trace fill height follows scroll progress
+  const traceFill = document.getElementById('traceFill');
+  function updateTrace(){
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    traceFill.style.height = Math.min(progress,100) + '%';
+  }
+  window.addEventListener('scroll', updateTrace);
+  updateTrace();
+
+  // Close mobile nav after clicking a link
+  document.querySelectorAll('.nav-link').forEach(link=>{
+    link.addEventListener('click', ()=>{
+      const toggle = document.getElementById('nav-toggle');
+      if(toggle) toggle.checked = false;
+    });
+  });
+</script>
+
+</body>
+</html>
