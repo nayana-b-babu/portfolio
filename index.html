@@ -203,12 +203,15 @@
     position:absolute;
     top:110px; right:6vw;
     font-family:'Space Grotesk',sans-serif;
-    font-size:min(22vw,260px);
+    font-size:min(6vw,64px);
     font-weight:700;
     color:transparent;
     -webkit-text-stroke:1px var(--line);
     z-index:-1;
     user-select:none;
+    text-align:right;
+    max-width:44vw;
+    line-height:1.05;
   }
   .hero .eyebrow{margin-bottom:24px;}
   .hero h1{
@@ -567,7 +570,7 @@
 </div>
 
 <nav>
-  <div class="logo"><span class="dot"></span>NB</div>
+  <div class="logo"><span class="dot"></span>Nayana B Babu</div>
   <input type="checkbox" id="nav-toggle">
   <label for="nav-toggle" class="menu-btn"><span></span><span></span><span></span></label>
   <div class="nav-links">
@@ -583,19 +586,18 @@
 <main>
 
   <section class="hero" id="home">
-    <div class="hero-mono-tag">NB</div>
+    <div class="hero-mono-tag">Nayana<br>B Babu</div>
     <div class="eyebrow mono">available for opportunities</div>
     <h1>Nayana B Babu<br><span>Python Full Stack Developer</span></h1>
-    <p class="lead">I build scalable web applications with Python, Flask/Django and JavaScript — from hospital and library systems to grocery and clinic platforms. I like turning real-world problems into working software.</p>
+    <p class="lead">I'm a Python full-stack developer with hands-on experience across Django, Flask, and JavaScript, building end-to-end management and booking systems for real-world operations. I focus on writing clean, maintainable code and designing interfaces people actually enjoy using — turning everyday problems into reliable, production-ready software.</p>
     <div class="hero-actions">
       <a href="#projects" class="btn btn-primary">View Projects →</a>
-      <a href="#contact" class="btn btn-ghost">Get in Touch</a>
     </div>
     <div class="hero-meta">
       <a href="mailto:nayanab.2502@gmail.com">nayanab.2502@gmail.com</a>
       <span>+91 8129381702</span>
       <span>Thiruvananthapuram, Kerala</span>
-      <a href="https://linkedin.com/in/nayana-b-babu" target="_blank">LinkedIn ↗</a>
+      <a href="https://www.linkedin.com/in/nayana-b-babu-7b6243222" target="_blank">LinkedIn ↗</a>
       <a href="https://github.com/nayana-b-babu" target="_blank">GitHub ↗</a>
     </div>
     <div class="scroll-cue"><div class="line"></div>scroll</div>
@@ -606,15 +608,15 @@
     <h2 class="section-title reveal">Solving real problems, one full-stack build at a time</h2>
     <div class="about-grid">
       <div class="reveal">
-        <p>I'm an aspiring full stack developer with hands-on experience building scalable web applications using Python (Flask), MySQL and JavaScript.</p>
-        <p>Across projects like inventory management and appointment booking systems, I've focused on writing clean, working code and designing interfaces that are actually easy to use.</p>
+        <p>I'm an aspiring full stack developer with hands-on experience building scalable web applications using Python (Django, Flask), MySQL/SQLite and JavaScript.</p>
+        <p>I've built a range of full-stack systems — an e-commerce clone with cart and checkout flows, an AI-powered resume analyzer, a billing system, and management platforms for students, hospitals, libraries and clinics — plus a grocery store app and a CNN-based plant disease detector. Across all of them, I've focused on writing clean, working code and designing interfaces that are actually easy to use.</p>
         <p>Alongside development, I spend time teaching programming through robotics — which keeps my problem-solving and debugging instincts sharp.</p>
       </div>
       <div class="fact-list reveal">
         <div class="fact"><span class="k">location</span><span class="v">Thiruvananthapuram, Kerala</span></div>
         <div class="fact"><span class="k">email</span><a class="v" href="mailto:nayanab.2502@gmail.com">nayanab.2502@gmail.com</a></div>
         <div class="fact"><span class="k">phone</span><span class="v">+91 8129381702</span></div>
-        <div class="fact"><span class="k">linkedin</span><a class="v" href="https://linkedin.com/in/nayana-b-babu" target="_blank">nayana-b-babu</a></div>
+        <div class="fact"><span class="k">linkedin</span><a class="v" href="https://www.linkedin.com/in/nayana-b-babu-7b6243222" target="_blank">nayana-b-babu</a></div>
         <div class="fact"><span class="k">github</span><a class="v" href="https://github.com/nayana-b-babu" target="_blank">nayana-b-babu</a></div>
       </div>
     </div>
@@ -633,7 +635,7 @@
       <div class="skill-card reveal">
         <h3>Backend</h3>
         <div class="chip-row">
-          <span class="chip">Python (Flask)</span><span class="chip">JavaScript</span><span class="chip">REST APIs</span><span class="chip">OOP</span><span class="chip">Data Structures</span>
+          <span class="chip">Python (Django, Flask)</span><span class="chip">JavaScript</span><span class="chip">REST APIs</span><span class="chip">OOP</span><span class="chip">Data Structures</span>
         </div>
       </div>
       <div class="skill-card reveal">
@@ -658,10 +660,10 @@
       <div class="tl-item reveal">
         <div class="tl-date">Apr 2026 — Present</div>
         <div>
-          <div class="tl-role">Python Full Stack Developer Intern</div>
+          <div class="tl-role">Python Full Stack Developer Trainee</div>
           <div class="tl-org">Wistora IQ Solutions</div>
           <ul>
-            <li>Developed web applications using Python and full-stack technologies</li>
+            <li>Developed web applications using Python, Django and full-stack technologies</li>
             <li>Worked with front-end technologies such as HTML, CSS and JavaScript</li>
             <li>Built database management and API integration skills</li>
             <li>Gained hands-on experience with real-world web development projects</li>
@@ -690,6 +692,62 @@
     <div class="project-grid">
 
       <div class="project-card reveal">
+        <h3>Amazon Clone</h3>
+        <div class="tech-row">
+          <span class="tech-tag">Django</span><span class="tech-tag">Pillow</span><span class="tech-tag">HTML/CSS/JS</span>
+        </div>
+        <p>Amazon-style shopping site with browsing and cart flows.</p>
+        <ul>
+          <li>Session-based cart with live cart count in the navbar</li>
+          <li>Product pages across home, shop, catalog and department views</li>
+          <li>Checkout flow with a clean, user-friendly interface</li>
+        </ul>
+        <a class="project-link" href="https://github.com/nayana-b-babu/amazon_shopping_website" target="_blank">github.com/nayana-b-babu/amazon_shopping_website ↗</a>
+      </div>
+
+      <div class="project-card reveal">
+        <h3>AI Resume Analyzer</h3>
+        <div class="tech-row">
+          <span class="tech-tag">Django</span><span class="tech-tag">SQLite</span><span class="tech-tag">Gemini API</span><span class="tech-tag">pdfplumber</span>
+        </div>
+        <p>AI-powered tool that scores resumes against job descriptions.</p>
+        <ul>
+          <li>ATS score calculation with matching and missing keyword detection</li>
+          <li>AI-generated resume improvement suggestions via Google Gemini API</li>
+          <li>Multi-resume upload, editing and analysis history dashboard</li>
+        </ul>
+        <a class="project-link" href="https://github.com/nayana-b-babu/ai_resume_analyzer" target="_blank">github.com/nayana-b-babu/ai_resume_analyzer ↗</a>
+      </div>
+
+      <div class="project-card reveal">
+        <h3>Billing Software</h3>
+        <div class="tech-row">
+          <span class="tech-tag">Django</span><span class="tech-tag">SQLite</span><span class="tech-tag">HTML/CSS/JS</span>
+        </div>
+        <p>Billing system for managing products, invoices and daily sales.</p>
+        <ul>
+          <li>Product management with automatic bill total calculation</li>
+          <li>Printable invoices and billing history</li>
+          <li>Date-wise sales filtering and daily sales reports</li>
+        </ul>
+        <a class="project-link" href="https://github.com/nayana-b-babu/billing_software" target="_blank">github.com/nayana-b-babu/billing_software ↗</a>
+      </div>
+
+      <div class="project-card reveal">
+        <h3>Student Management System</h3>
+        <div class="tech-row">
+          <span class="tech-tag">Django</span><span class="tech-tag">SQLite</span><span class="tech-tag">HTML/CSS/JS</span>
+        </div>
+        <p>System for managing students, teachers, courses and records.</p>
+        <ul>
+          <li>Student and teacher management with course enrollment</li>
+          <li>Attendance tracking and examination/marks management</li>
+          <li>Admin dashboard built on the Django Admin panel</li>
+        </ul>
+        <a class="project-link" href="https://github.com/nayana-b-babu/student_management_system" target="_blank">github.com/nayana-b-babu/student_management_system ↗</a>
+      </div>
+
+      <div class="project-card reveal">
         <h3>Hospital Management System</h3>
         <div class="tech-row">
           <span class="tech-tag">Django</span><span class="tech-tag">SQLite</span><span class="tech-tag">HTML/CSS/JS</span>
@@ -700,7 +758,7 @@
           <li>SQLite database for doctors, patients and appointments</li>
           <li>Responsive UI for an intuitive experience</li>
         </ul>
-        <a class="project-link" href="https://github.com/nayana-b-babu/hospital-management-system" target="_blank">github.com/nayana-b-babu/hospital-management-system ↗</a>
+        <a class="project-link" href="https://github.com/nayana-b-babu/hospital_management_system" target="_blank">github.com/nayana-b-babu/hospital_management_system ↗</a>
       </div>
 
       <div class="project-card reveal">
@@ -714,21 +772,7 @@
           <li>Django + SQLite for full CRUD operations</li>
           <li>Interactive, user-friendly interface</li>
         </ul>
-        <a class="project-link" href="https://github.com/nayana-b-babu/library-management-system" target="_blank">github.com/nayana-b-babu/library-management-system ↗</a>
-      </div>
-
-      <div class="project-card reveal">
-        <h3>Grocery Store Management System</h3>
-        <div class="tech-row">
-          <span class="tech-tag">Flask</span><span class="tech-tag">MySQL</span><span class="tech-tag">Bootstrap</span>
-        </div>
-        <p>Full-stack app to manage grocery store operations.</p>
-        <ul>
-          <li>Inventory management, order processing and product tracking</li>
-          <li>Flask backend for data processing and logic</li>
-          <li>Responsive Bootstrap interface</li>
-        </ul>
-        <a class="project-link" href="https://github.com/nayana-b-babu/grocery-shopping-webapp" target="_blank">github.com/nayana-b-babu/grocery-shopping-webapp ↗</a>
+        <a class="project-link" href="https://github.com/nayana-b-babu/library_management_system" target="_blank">github.com/nayana-b-babu/library_management_system ↗</a>
       </div>
 
       <div class="project-card reveal">
@@ -743,6 +787,20 @@
           <li>SQLite for application data via Flask</li>
         </ul>
         <a class="project-link" href="https://github.com/nayana-b-babu/clinic-appointment-system" target="_blank">github.com/nayana-b-babu/clinic-appointment-system ↗</a>
+      </div>
+
+      <div class="project-card reveal">
+        <h3>Grocery Store Management System</h3>
+        <div class="tech-row">
+          <span class="tech-tag">Flask</span><span class="tech-tag">MySQL</span><span class="tech-tag">Bootstrap</span>
+        </div>
+        <p>Full-stack app to manage grocery store operations.</p>
+        <ul>
+          <li>Inventory management, order processing and product tracking</li>
+          <li>Flask backend for data processing and logic</li>
+          <li>Responsive Bootstrap interface</li>
+        </ul>
+        <a class="project-link" href="https://github.com/nayana-b-babu/grocery-shopping-webapp" target="_blank">github.com/nayana-b-babu/grocery-shopping-webapp ↗</a>
       </div>
 
       <div class="project-card reveal">
@@ -785,7 +843,7 @@
   </div>
   <div class="foot-links">
     <a href="mailto:nayanab.2502@gmail.com">nayanab.2502@gmail.com</a>
-    <a href="https://linkedin.com/in/nayana-b-babu" target="_blank">LinkedIn</a>
+    <a href="https://www.linkedin.com/in/nayana-b-babu-7b6243222" target="_blank">LinkedIn</a>
     <a href="https://github.com/nayana-b-babu" target="_blank">GitHub</a>
   </div>
   <div class="copyright">© 2026 Nayana B Babu — built with HTML, CSS &amp; JavaScript</div>
