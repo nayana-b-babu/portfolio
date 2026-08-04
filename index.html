@@ -162,6 +162,9 @@
 
   /* ---------- Layout helpers ---------- */
   main{position:relative;z-index:2;}
+  section, footer{
+    scroll-margin-top:90px;
+  }
   section{
     padding:140px 6vw 100px;
     max-width:1100px;
@@ -183,6 +186,9 @@
     content:'';
     width:24px;height:1px;
     background:var(--teal);
+  }
+  .hero .eyebrow::before{
+    content:none;
   }
   .section-title{
     font-size:clamp(28px,4vw,40px);
@@ -215,9 +221,9 @@
   }
   .hero .eyebrow{margin-bottom:24px;}
   .hero h1{
-    font-size:clamp(40px,7vw,84px);
+    font-size:clamp(30px,5vw,56px);
     font-weight:700;
-    line-height:1.05;
+    line-height:1.1;
     margin-bottom:20px;
   }
   .hero h1 span{color:var(--teal);}
@@ -500,6 +506,43 @@
     margin-bottom:30px;
   }
   .foot-links a:hover{color:var(--teal);}
+
+  .contact-info-cards{
+    max-width:480px;
+    margin:0 auto 40px;
+    display:flex;
+    flex-direction:column;
+    gap:22px;
+    align-items:center;
+  }
+  .contact-info-row{
+    display:flex;
+    align-items:center;
+    gap:16px;
+  }
+  .contact-info-icon{
+    flex-shrink:0;
+    width:48px;
+    height:48px;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .contact-info-text{display:flex;flex-direction:column;gap:3px;text-align:left;}
+  .contact-info-label{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    color:var(--muted);
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+  }
+  .contact-info-value{
+    font-size:16px;
+    font-weight:600;
+    color:var(--text);
+  }
+  .contact-info-value:hover{color:var(--teal);}
   .copyright{
     font-family:'JetBrains Mono',monospace;
     font-size:12px;
@@ -565,7 +608,8 @@
   <div class="trace-node" data-section="about" style="top:24%"></div>
   <div class="trace-node" data-section="skills" style="top:42%"></div>
   <div class="trace-node" data-section="experience" style="top:58%"></div>
-  <div class="trace-node" data-section="projects" style="top:76%"></div>
+  <div class="trace-node" data-section="projects" style="top:70%"></div>
+  <div class="trace-node" data-section="education-sec" style="top:83%"></div>
   <div class="trace-node" data-section="contact" style="top:94%"></div>
 </div>
 
@@ -574,20 +618,20 @@
   <input type="checkbox" id="nav-toggle">
   <label for="nav-toggle" class="menu-btn"><span></span><span></span><span></span></label>
   <div class="nav-links">
-    <a href="#home" class="nav-link" data-section="home">home</a>
-    <a href="#about" class="nav-link" data-section="about">about</a>
-    <a href="#skills" class="nav-link" data-section="skills">skills</a>
-    <a href="#experience" class="nav-link" data-section="experience">experience</a>
-    <a href="#projects" class="nav-link" data-section="projects">projects</a>
-    <a href="#contact" class="nav-link" data-section="contact">contact</a>
+    <a href="#home" class="nav-link" data-section="home">Home</a>
+    <a href="#about" class="nav-link" data-section="about">About</a>
+    <a href="#skills" class="nav-link" data-section="skills">Skills</a>
+    <a href="#experience" class="nav-link" data-section="experience">Experience</a>
+    <a href="#projects" class="nav-link" data-section="projects">Projects</a>
+    <a href="#education-sec" class="nav-link" data-section="education-sec">Education</a>
+    <a href="#contact" class="nav-link" data-section="contact">Contact</a>
   </div>
 </nav>
 
 <main>
 
   <section class="hero" id="home">
-    <div class="hero-mono-tag">Nayana<br>B Babu</div>
-    <div class="eyebrow mono">available for opportunities</div>
+    <div class="eyebrow mono">Hello, I am</div>
     <h1>Nayana B Babu<br><span>Python Full Stack Developer</span></h1>
     <p class="lead">I'm a Python full-stack developer with hands-on experience across Django, Flask, and JavaScript, building end-to-end management and booking systems for real-world operations. I focus on writing clean, maintainable code and designing interfaces people actually enjoy using — turning everyday problems into reliable, production-ready software.</p>
     <div class="hero-actions">
@@ -600,12 +644,11 @@
       <a href="https://www.linkedin.com/in/nayana-b-babu-7b6243222" target="_blank">LinkedIn ↗</a>
       <a href="https://github.com/nayana-b-babu" target="_blank">GitHub ↗</a>
     </div>
-    <div class="scroll-cue"><div class="line"></div>scroll</div>
   </section>
 
   <section id="about">
-    <div class="eyebrow mono">01 — about</div>
-    <h2 class="section-title reveal">Solving real problems, one full-stack build at a time</h2>
+    <div class="eyebrow mono" style="justify-content:center;font-size:18px;letter-spacing:0.1em;">About Me</div>
+    <h2 class="section-title reveal" style="text-align:center;">From concept to code — building software that solves real problems</h2>
     <div class="about-grid">
       <div class="reveal">
         <p>I'm an aspiring full stack developer with hands-on experience building scalable web applications using Python (Django, Flask), MySQL/SQLite and JavaScript.</p>
@@ -623,8 +666,8 @@
   </section>
 
   <section id="skills">
-    <div class="eyebrow mono">02 — skills</div>
-    <h2 class="section-title reveal">Toolkit</h2>
+    <div class="eyebrow mono" style="justify-content:center;font-size:18px;letter-spacing:0.1em;">SKILLS</div>
+    <h2 class="section-title reveal" style="text-align:center;">Toolkit</h2>
     <div class="skills-grid">
       <div class="skill-card reveal">
         <h3>Frontend</h3>
@@ -654,8 +697,8 @@
   </section>
 
   <section id="experience">
-    <div class="eyebrow mono">03 — experience</div>
-    <h2 class="section-title reveal">Where I've worked</h2>
+    <div class="eyebrow mono" style="justify-content:center;font-size:18px;letter-spacing:0.1em;">EXPERIENCE</div>
+    <h2 class="section-title reveal" style="text-align:center;">Professional experience so far</h2>
     <div class="timeline">
       <div class="tl-item reveal">
         <div class="tl-date">Apr 2026 — Present</div>
@@ -687,8 +730,8 @@
   </section>
 
   <section id="projects">
-    <div class="eyebrow mono">04 — projects</div>
-    <h2 class="section-title reveal">Things I've built</h2>
+    <div class="eyebrow mono" style="justify-content:center;font-size:18px;letter-spacing:0.1em;">PROJECTS</div>
+    <h2 class="section-title reveal" style="text-align:center;">An overview of my builds</h2>
     <div class="project-grid">
 
       <div class="project-card reveal">
@@ -820,8 +863,8 @@
   </section>
 
   <section id="education-sec">
-    <div class="eyebrow mono">05 — education</div>
-    <h2 class="section-title reveal">Education</h2>
+    <div class="eyebrow mono" style="justify-content:center;font-size:18px;letter-spacing:0.1em;">EDUCATION</div>
+    <h2 class="section-title reveal" style="text-align:center;">Academic Background</h2>
     <div class="edu-card reveal">
       <div>
         <h3>B.Tech in Computer Science and Engineering</h3>
@@ -834,17 +877,40 @@
 </main>
 
 <footer id="contact">
-  <div class="eyebrow mono">06 — contact</div>
-  <h2 class="reveal">Let's build something together</h2>
-  <p class="lead reveal">Open to full-stack developer roles and collaborations. Reach out any time.</p>
+  <div class="eyebrow mono" style="font-size:18px;letter-spacing:0.1em;">CONTACT</div>
+  <h2 class="section-title reveal">Let's build something together</h2>
+  <p class="lead reveal">Open to opportunities as a Python Full Stack Developer, and always up for discussing new projects and ideas.</p>
+  <div class="contact-info-cards reveal">
+    <div class="contact-info-row">
+      <div class="contact-info-icon" style="background:#00E5D6;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m22 6-10 7L2 6"></path></svg>
+      </div>
+      <div class="contact-info-text">
+        <div class="contact-info-label">Email</div>
+        <a class="contact-info-value" href="mailto:nayanab.2502@gmail.com">nayanab.2502@gmail.com</a>
+      </div>
+    </div>
+    <div class="contact-info-row">
+      <div class="contact-info-icon" style="background:#0A66C2;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="var(--text)"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.85 0-2.14 1.45-2.14 2.94v5.66H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"></path></svg>
+      </div>
+      <div class="contact-info-text">
+        <div class="contact-info-label">LinkedIn</div>
+        <a class="contact-info-value" href="https://www.linkedin.com/in/nayana-b-babu-7b6243222" target="_blank">linkedin.com/in/nayana-b-babu</a>
+      </div>
+    </div>
+    <div class="contact-info-row">
+      <div class="contact-info-icon" style="background:var(--panel);border:1px solid var(--line);">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="var(--text)"><path d="M12 .3a12 12 0 0 0-3.79 23.4c.6.11.82-.26.82-.58v-2.03c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.84 2.81 1.31 3.5 1 .11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.49 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58A12 12 0 0 0 12 .3z"></path></svg>
+      </div>
+      <div class="contact-info-text">
+        <div class="contact-info-label">GitHub</div>
+        <a class="contact-info-value" href="https://github.com/nayana-b-babu" target="_blank">github.com/nayana-b-babu</a>
+      </div>
+    </div>
+  </div>
   <div class="contact-actions reveal">
     <a href="mailto:nayanab.2502@gmail.com" class="btn btn-primary">Say Hello →</a>
-    <a href="tel:+918129381702" class="btn btn-ghost">Call Me</a>
-  </div>
-  <div class="foot-links">
-    <a href="mailto:nayanab.2502@gmail.com">nayanab.2502@gmail.com</a>
-    <a href="https://www.linkedin.com/in/nayana-b-babu-7b6243222" target="_blank">LinkedIn</a>
-    <a href="https://github.com/nayana-b-babu" target="_blank">GitHub</a>
   </div>
   <div class="copyright">© 2026 Nayana B Babu — built with HTML, CSS &amp; JavaScript</div>
 </footer>
@@ -866,18 +932,26 @@
   const navLinks = document.querySelectorAll('.nav-link');
   const traceNodes = document.querySelectorAll('.trace-node');
 
-  const sectionObserver = new IntersectionObserver((entries)=>{
-    entries.forEach(entry=>{
-      const id = entry.target.getAttribute('id');
-      if(entry.isIntersecting){
-        navLinks.forEach(l=>l.classList.toggle('active', l.dataset.section===id));
-        traceNodes.forEach(n=>{
-          if(n.dataset.section===id) n.classList.add('lit');
-        });
+  function updateActiveNav(){
+    const navOffset = 110; // px below top of viewport used as the "active" reference line
+    let currentId = sections[0] ? sections[0].getAttribute('id') : null;
+    sections.forEach(sec=>{
+      const rect = sec.getBoundingClientRect();
+      if(rect.top - navOffset <= 0){
+        currentId = sec.getAttribute('id');
       }
     });
-  },{threshold:0.4});
-  sections.forEach(s=>sectionObserver.observe(s));
+    // Fallback: if scrolled to (or near) the bottom of the page, always highlight Contact
+    const scrolledToBottom = (window.innerHeight + window.scrollY) >= (document.documentElement.scrollHeight - 4);
+    if(scrolledToBottom){
+      currentId = 'contact';
+    }
+    navLinks.forEach(l=>l.classList.toggle('active', l.dataset.section===currentId));
+    traceNodes.forEach(n=>n.classList.toggle('lit', n.dataset.section===currentId));
+  }
+  window.addEventListener('scroll', updateActiveNav);
+  window.addEventListener('resize', updateActiveNav);
+  updateActiveNav();
 
   // Trace fill height follows scroll progress
   const traceFill = document.getElementById('traceFill');
