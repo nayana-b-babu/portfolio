@@ -507,21 +507,25 @@
   }
   .foot-links a:hover{color:var(--teal);}
 
+  /* Contact info block: fixed-width column so all three rows
+     (Email / LinkedIn / GitHub) line up on the same left edge,
+     regardless of label length. */
   .contact-info-cards{
-    max-width:480px;
+    width:100%;
+    max-width:380px;
     margin:0 auto 40px;
     display:flex;
     flex-direction:column;
     gap:22px;
-    align-items:center;
   }
   .contact-info-row{
     display:flex;
     align-items:center;
     gap:16px;
+    width:100%;
   }
   .contact-info-icon{
-    flex-shrink:0;
+    flex:0 0 48px;
     width:48px;
     height:48px;
     border-radius:12px;
@@ -529,7 +533,14 @@
     align-items:center;
     justify-content:center;
   }
-  .contact-info-text{display:flex;flex-direction:column;gap:3px;text-align:left;}
+  .contact-info-text{
+    flex:1 1 auto;
+    min-width:0;
+    display:flex;
+    flex-direction:column;
+    gap:3px;
+    text-align:left;
+  }
   .contact-info-label{
     font-family:'JetBrains Mono',monospace;
     font-size:12px;
@@ -541,6 +552,9 @@
     font-size:16px;
     font-weight:600;
     color:var(--text);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
   }
   .contact-info-value:hover{color:var(--teal);}
   .copyright{
@@ -591,6 +605,10 @@
     .menu-btn{display:none;}
   }
 
+  @media (max-width:420px){
+    .contact-info-cards{max-width:280px;}
+  }
+
   @media (prefers-reduced-motion: reduce){
     *{animation:none !important; transition:none !important;}
   }
@@ -633,7 +651,7 @@
   <section class="hero" id="home">
     <div class="eyebrow mono">Hello, I am</div>
     <h1>Nayana B Babu<br><span>Python Full Stack Developer</span></h1>
-    <p class="lead">I'm a Python full-stack developer with hands-on experience across Django, Flask, and JavaScript, building end-to-end management and booking systems for real-world operations. I focus on writing clean, maintainable code and designing interfaces people actually enjoy using — turning everyday problems into reliable, production-ready software.</p>
+    <p class="lead">Building real-world software with Django, Flask, and JavaScript, from e-commerce and AI tools to management and billing systems. Clean code, usable interfaces.</p>
     <div class="hero-actions">
       <a href="#projects" class="btn btn-primary">View Projects →</a>
     </div>
@@ -835,7 +853,7 @@
       <div class="project-card reveal">
         <h3>Grocery Store Management System</h3>
         <div class="tech-row">
-          <span class="tech-tag">Flask</span><span class="tech-tag">MySQL</span><span class="tech-tag">Bootstrap</span>
+          <span class="tech-tag">Flask</span><span class="tech-tag">MySQL</span><span class="tech-tag">HTML/CSS/Bootstrap</span>
         </div>
         <p>Full-stack app to manage grocery store operations.</p>
         <ul>
@@ -912,7 +930,7 @@
   <div class="contact-actions reveal">
     <a href="mailto:nayanab.2502@gmail.com" class="btn btn-primary">Say Hello →</a>
   </div>
-  <div class="copyright">© 2026 Nayana B Babu — built with HTML, CSS &amp; JavaScript</div>
+  <div class="copyright">© 2026 Nayana B Babu. Built with passion &amp; precision.</div>
 </footer>
 
 <script>
